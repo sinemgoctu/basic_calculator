@@ -10,6 +10,9 @@ function calculate()
         if ($op == "/" && $num2 == 0) {
             return "Please enter valid numbers!";
         }
+        if ($op == "%" && $num2 == 0) {
+            return "Please enter valid numbers!";
+        }
         if ($op == "+") $result = ($num1 + $num2);
         elseif ($op == "-") $result = ($num1 - $num2);
         elseif ($op == "*") $result = ($num1 * $num2);
