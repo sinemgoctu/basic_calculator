@@ -13,11 +13,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background: white;
         }
 
         form {
-            background: cornflowerblue;
-            width: 50%;
+            background: whitesmoke;
+            width: 40%;
             height: 50%;
             padding: 20px;
             border-radius: 8px;
@@ -59,19 +60,19 @@
 
         select {
             border-color: blue;
-            width: 50px;
+            width: 55px;
             padding: 0;
             text-align: center;
         }
 
         input[type="number"] {
-            width: 120px;
+            width: 135px;
         }
 
         button {
             width: 100px;
             cursor: pointer;
-            background-color: white;
+            background-color: cornflowerblue;
         }
 
         .result {
@@ -90,8 +91,9 @@
     <div class="container">
         <div class="form-group">
             <label>
-                <input type="number" name="number1"
-                       value="<?= isset($_POST['number1']) ? $_POST['number1'] : '' ?>"
+                <input type="number" name="number1" step="any"
+                       value="<?= isset($_SESSION['number1']) ? $_SESSION['number1'] : '' ?>"
+                       placeholder="First Number"
                        required>
             </label>
             <label>
@@ -99,15 +101,16 @@
                     <?php
                     $operators = ["+", "-", "*", "/", "%"];
                     foreach ($operators as $operator) {
-                        $selected = (isset($_POST['operator']) && $_POST['operator'] === $operator) ? 'selected' : '';
+                        $selected = (isset($_SESSION['operator']) && $_SESSION['operator'] === $operator) ? 'selected' : '';
                         echo "<option value=\"$operator\" $selected>$operator</option>";
                     }
                     ?>
                 </select>
             </label>
             <label>
-                <input type="number" name="number2"
-                       value="<?= isset($_POST['number2']) ? $_POST['number2'] : '' ?>"
+                <input type="number" name="number2" step="any"
+                       value="<?= isset($_SESSION['number2']) ? $_SESSION['number2'] : '' ?>"
+                       placeholder="Second Number"
                        required>
             </label>
         </div>
@@ -117,7 +120,12 @@
         </div>
     </div>
     <p class="result">
-        <?= "<br>" . calculate() ?>
+        <?php
+        if (isset($_SESSION['result'])) {
+            echo "<br>Result: " . $_SESSION['result'];
+            session_unset();
+        }
+        ?>
     </p>
 
 
